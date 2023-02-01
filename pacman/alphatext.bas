@@ -408,8 +408,8 @@
 	    if char_shape(i) <> "" then
 		bf.char_image(i) = Text2Image(replace_letter(char_shape(i),"W", _
 					      colorstring), xscale, yscale)
-		bf.max_height = MAX(bf.max_height, bf.char_image(i)->height)
-		bf.max_width = MAX(bf.max_width, bf.char_image(i)->width)
+		bf.max_height = MMAX(bf.max_height, bf.char_image(i)->height)
+		bf.max_width = MMAX(bf.max_width, bf.char_image(i)->width)
 	    end if
 	next
 	return bf

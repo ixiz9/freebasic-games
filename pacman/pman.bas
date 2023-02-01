@@ -2,8 +2,9 @@
     'Remove this define for a more traditional maze
     '#define V2023
     
-    #define MIN(a,b)  (iif((a) < (b), (a), (b)))
-    #define MAX(a,b)  (iif((a) > (b), (a), (b)))
+    'Odd spelling to avoid conflict with windef.bi
+    #define MMIN(a,b)  (iif((a) < (b), (a), (b)))
+    #define MMAX(a,b)  (iif((a) > (b), (a), (b)))
     'These includes have nothing specific to pman
     #include "gaming.bas"
     #include "alphatext.bas"
@@ -16,9 +17,9 @@
     #define GHOST_HOME 3
     #define WALL 4
     #define HOME_WALL 5
-    dim shared as coord ghost_door
+    dim shared as ccoord ghost_door
     dim shared as integer total_food
-    dim shared as coord pman_start
+    dim shared as ccoord pman_start
     dim shared as integer maze(any, any), saved_maze(any,any)
 
     'graphics objects
@@ -40,8 +41,8 @@
     #define CLYDE 4
     #define MAX_GHOSTS 4
     type ghost
-	as coord corner
-	as coord home
+	as ccoord corner
+	as ccoord home
 	as sprite gsprite
 	as double start_time
 	as integer algorithm
@@ -53,11 +54,12 @@
     dim shared as blockfont bonus_font
 
     #include "assets.bas"
+    #include "sounds.bas"
 
     'general gameplay variables
     #define MAX_BONUSES 10
     type display_bonus
-	as coord mz
+	as ccoord mz
 	as double expiration
 	as integer bonus_val
     end type
@@ -233,6 +235,7 @@
 		MAZE_AT(pman.mz) = 0
 		food_left -= 1
 		Score += 10
+		play_eat_dot()
 	    end if
 	    if MAZE_AT(pman.mz) = POWERUP then
 		MAZE_AT(pman.mz) = 0
@@ -242,6 +245,7 @@
 		next 
 		powerup_end = time_now + POWERUP_DURATION
 		bonus_amount = 0
+		play_eat_powerup()
 	    end if
 
 	    pman_new_target(@pman)
@@ -250,7 +254,7 @@
 	return 0
     end function
 
-    function ghost_can_go_there(sp as sprite ptr, c as coord) as integer
+    function ghost_can_go_there(sp as sprite ptr, c as ccoord) as integer
 	if MAZE_AT(c) = WALL then return 0
 	if MAZE_AT(c) < WALL then return 1
 	'Get here if the ghost is trying to go through the door of the ghost
@@ -263,11 +267,11 @@
 
     'These ghost target selections are pretty close to what is
     'described here https://www.gamedeveloper.com/design/the-pac-man-dossier
-    function blinky_goal(g as ghost ptr) as coord
+    function blinky_goal(g as ghost ptr) as ccoord
 	return pman.mz
     end function
 	
-    function clyde_goal(g as ghost ptr) as coord
+    function clyde_goal(g as ghost ptr) as ccoord
 	dim as double d = DISTANCE(pman.mz, g->gsprite.mz)
 	'8?? Apparently that's the clyde algorithm
 	if d > 8 then
@@ -277,8 +281,8 @@
 	end if
     end function
 
-    function pinky_goal(g as ghost ptr) as coord
-	dim as coord c
+    function pinky_goal(g as ghost ptr) as ccoord
+	dim as ccoord c
 	dim as DirVect v
 	for i as integer = 5 to 0 step -1
 	    v.dx = i * pman.cur_dir.dx
@@ -296,8 +300,8 @@
     'in the original game inky's target is calculated based on both pman's
     'location and blinky, but I want to support an arbitrary selection of ghosts
     'which may not have a blinky, so I prefer each ghost be independent 
-    function inky_goal(g as ghost ptr) as coord
-	dim as coord c
+    function inky_goal(g as ghost ptr) as ccoord
+	dim as ccoord c
 	dim as DirVect v
 	'find a random location somewhere near pman that is not a wall
 	for i as integer = 1 to 4
@@ -317,7 +321,7 @@
     'Select one of the 4 adjacent tiless for the ghost to move to. Most of the
     'process is the same for all ghosts with just the hunting behavior different
     sub ghost_new_target(g as ghost ptr)
-	dim as coord goal
+	dim as ccoord goal
 	if time_now < g->start_time then
 	    'Either the ghost has been eaten and should return to the ghost
 	    'house and be there for a while, or it has not started yet and 
@@ -369,7 +373,7 @@
 		    continue for
 		end if
 		
-		dim as coord td = coord_add(g->gsprite.mz, Directions(i))
+		dim as ccoord td = coord_add(g->gsprite.mz, Directions(i))
 		if  ghost_can_go_there(@(g->gsprite), td) then
 		    dim as double dist = DISTANCE(td, goal)
 		    if dist < shortest then
@@ -505,7 +509,7 @@
     end sub
 
     'When pman eats a ghost we draw on the screen the bonus amount.
-    sub add_bonus(mz as coord, amount as integer, expiration as double)
+    sub add_bonus(mz as ccoord, amount as integer, expiration as double)
 	bonusc += 1
 	assert(bonusc < MAX_BONUSES)
 	with bonuses(bonusc)
@@ -552,7 +556,7 @@
     sub pick_resolution
 	dim as integer res
 	do
-	    print "Pick you game resolution:"
+	    print "Pick your game resolution:"
 	    print "1) 800x600"
 	    print "2) 1024x768"
 	    print "3) 1280x720"
@@ -721,7 +725,7 @@
     dim as integer k = getkey()
     if k = ASC("/") then end
 
-    
+    init_sound()
     maze_walls_image = ImageCreate(maze_w*maze_xfactor, maze_h*maze_yfactor, _
 		       RGB(0,0,0), 32)
     draw_wall_outlines(maze_walls_image)
@@ -755,13 +759,15 @@
 		if quit > 0 then exit do
 		for i as integer = 1 to num_ghosts
 		    eaten = move_ghost(@ghosts(i))
-		    if eaten = PMAN_EATEN then
+		    if eaten = PMAN_EATEN then			
 			pman.state = DYING
 			pman.frame_count = 0
+			play_eat_pman()
 		    end if
 		    if eaten = GHOST_EATEN then
 			bonus_amount += 200
 			score += bonus_amount
+			play_eat_ghost()
 			add_bonus(ghosts(i).gsprite.mz, bonus_amount, _
 				  time_now + 3)
 		    end if
