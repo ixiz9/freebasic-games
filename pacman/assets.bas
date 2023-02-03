@@ -736,11 +736,11 @@
 	    for y as integer = 0 to maze_h-1
 		if maze(x+1,y+1) = FOOD then
 		    circle (maze_x + x*maze_xfactor + maze_xfactor\2, maze_y + y*maze_yfactor + maze_yfactor\2), _
-			   MIN(maze_xfactor\6, maze_yfactor\6), RGB(200,200,200),,,,F
+			   MMIN(maze_xfactor\6, maze_yfactor\6), RGB(200,200,200),,,,F
 		end if
 		if maze(x+1,y+1) = POWERUP then
 		    circle (maze_x + x*maze_xfactor + maze_xfactor\2, maze_y + y*maze_yfactor + maze_yfactor\2), _
-			   MIN(maze_xfactor\3, maze_yfactor\3), RGB(163, 206, 39),,,,F
+			   MMIN(maze_xfactor\3, maze_yfactor\3), RGB(163, 206, 39),,,,F
 		end if
 	    next
 	next

@@ -2,8 +2,9 @@
     using fb
 
     dim shared as integer DBGG
-    
-    Type coord
+
+    'Avoid conflict with some windows libraries that also define coord GRRR
+    Type my_coord
 	as integer x, y
     end type
     
@@ -35,9 +36,9 @@
 	'location on the screen and velocity
 	as double x, y, vx, vy
 	'location we are moving FROM in maze coordinates
-	as coord mz
+	as my_coord mz
 	'location we are moving TO in maze coordinates. One tile away from mz
-	as coord targ
+	as my_coord targ
 	'Time to cross one tile in the maze. Higher value means slower sprite
 	'Pman uses only one speed but ghosts' speed changes between states
 	as double time_to_cross(TOTAL_STATES)
@@ -100,15 +101,15 @@
 	print #1, "ERROR! NO COLOR FOR " & c
     end function
     
-    function coord_add overload (a as coord, b as coord) as coord
-	dim as coord c
+    function coord_add overload (a as my_coord, b as my_coord) as my_coord
+	dim as my_coord c
 	c.x = a.x + b.x
 	c.y = a.y + b.y
 	return c
     end function
     
-    function coord_add overload (a as coord, b as DirVect) as coord
-	dim as coord c
+    function coord_add overload (a as my_coord, b as DirVect) as my_coord
+	dim as my_coord c
 	c.x = a.x + b.dx
 	c.y = a.y + b.dy
 	return c

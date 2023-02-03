@@ -1,9 +1,10 @@
     'Define for the maze in the shape of the word "2023"
     'Remove this define for a more traditional maze
     '#define V2023
-    
-    #define MIN(a,b)  (iif((a) < (b), (a), (b)))
-    #define MAX(a,b)  (iif((a) > (b), (a), (b)))
+
+    'avoid conflict with windows 
+    #define MMIN(a,b)  (iif((a) < (b), (a), (b)))
+    #define MMAX(a,b)  (iif((a) > (b), (a), (b)))
     'These includes have nothing specific to pman
     #include "gaming.bas"
     #include "alphatext.bas"
@@ -16,9 +17,9 @@
     #define GHOST_HOME 3
     #define WALL 4
     #define HOME_WALL 5
-    dim shared as coord ghost_door
+    dim shared as my_coord ghost_door
     dim shared as integer total_food
-    dim shared as coord pman_start
+    dim shared as my_coord pman_start
     dim shared as integer maze(any, any), saved_maze(any,any)
 
     'graphics objects
@@ -40,8 +41,8 @@
     #define CLYDE 4
     #define MAX_GHOSTS 4
     type ghost
-	as coord corner
-	as coord home
+	as my_coord corner
+	as my_coord home
 	as sprite gsprite
 	as double start_time
 	as integer algorithm
@@ -62,7 +63,7 @@
     'general gameplay variables
     #define MAX_BONUSES 10
     type display_bonus
-	as coord mz
+	as my_coord mz
 	as double expiration
 	as integer bonus_val
     end type
@@ -261,7 +262,7 @@
 	return 0
     end function
 
-    function ghost_can_go_there(sp as sprite ptr, c as coord) as integer
+    function ghost_can_go_there(sp as sprite ptr, c as my_coord) as integer
 	if MAZE_AT(c) = WALL then return 0
 	if MAZE_AT(c) < WALL then return 1
 	'Get here if the ghost is trying to go through the door of the ghost
@@ -274,11 +275,11 @@
 
     'These ghost target selections are pretty close to what is
     'described here https://www.gamedeveloper.com/design/the-pac-man-dossier
-    function blinky_goal(g as ghost ptr) as coord
+    function blinky_goal(g as ghost ptr) as my_coord
 	return pman.mz
     end function
 	
-    function clyde_goal(g as ghost ptr) as coord
+    function clyde_goal(g as ghost ptr) as my_coord
 	dim as double d = DISTANCE(pman.mz, g->gsprite.mz)
 	'8?? Apparently that's the clyde algorithm
 	if d > 8 then
@@ -288,8 +289,8 @@
 	end if
     end function
 
-    function pinky_goal(g as ghost ptr) as coord
-	dim as coord c
+    function pinky_goal(g as ghost ptr) as my_coord
+	dim as my_coord c
 	dim as DirVect v
 	for i as integer = 5 to 0 step -1
 	    v.dx = i * pman.cur_dir.dx
@@ -307,8 +308,8 @@
     'in the original game inky's target is calculated based on both pman's
     'location and blinky, but I want to support an arbitrary selection of ghosts
     'which may not have a blinky, so I prefer each ghost be independent 
-    function inky_goal(g as ghost ptr) as coord
-	dim as coord c
+    function inky_goal(g as ghost ptr) as my_coord
+	dim as my_coord c
 	dim as DirVect v
 	'find a random location somewhere near pman that is not a wall
 	for i as integer = 1 to 4
@@ -328,7 +329,7 @@
     'Select one of the 4 adjacent tiless for the ghost to move to. Most of the
     'process is the same for all ghosts with just the hunting behavior different
     sub ghost_new_target(g as ghost ptr)
-	dim as coord goal
+	dim as my_coord goal
 	if time_now < g->start_time then
 	    'Either the ghost has been eaten and should return to the ghost
 	    'house and be there for a while, or it has not started yet and 
@@ -380,7 +381,7 @@
 		    continue for
 		end if
 		
-		dim as coord td = coord_add(g->gsprite.mz, Directions(i))
+		dim as my_coord td = coord_add(g->gsprite.mz, Directions(i))
 		if  ghost_can_go_there(@(g->gsprite), td) then
 		    dim as double dist = DISTANCE(td, goal)
 		    if dist < shortest then
@@ -519,7 +520,7 @@
     end sub
 
     'When pman eats a ghost we draw on the screen the bonus amount.
-    sub add_bonus(mz as coord, amount as integer, expiration as double)
+    sub add_bonus(mz as my_coord, amount as integer, expiration as double)
 	bonusc += 1
 	assert(bonusc < MAX_BONUSES)
 	with bonuses(bonusc)
