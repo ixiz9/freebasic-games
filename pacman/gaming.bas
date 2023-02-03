@@ -2,9 +2,8 @@
     using fb
 
     dim shared as integer DBGG
-
-    'Odd spelling to avoid conflict with wincon.bi
-    Type ccoord
+    
+    Type coord
 	as integer x, y
     end type
     
@@ -36,9 +35,9 @@
 	'location on the screen and velocity
 	as double x, y, vx, vy
 	'location we are moving FROM in maze coordinates
-	as ccoord mz
+	as coord mz
 	'location we are moving TO in maze coordinates. One tile away from mz
-	as ccoord targ
+	as coord targ
 	'Time to cross one tile in the maze. Higher value means slower sprite
 	'Pman uses only one speed but ghosts' speed changes between states
 	as double time_to_cross(TOTAL_STATES)
@@ -90,7 +89,7 @@
 	case "N" ' Neon Green	
 	    return RGB(163, 206, 39)
 	case "M" ' Midnight Blue
-	    return RGB(27, 38, 50)
+	    return RGB(16, 65, 227)
 	case "s" ' Seablue
 	    return RGB(0, 87, 132)
 	case "S" ' Skyblue
@@ -101,15 +100,15 @@
 	print #1, "ERROR! NO COLOR FOR " & c
     end function
     
-    function coord_add overload (a as ccoord, b as ccoord) as ccoord
-	dim as ccoord c
+    function coord_add overload (a as coord, b as coord) as coord
+	dim as coord c
 	c.x = a.x + b.x
 	c.y = a.y + b.y
 	return c
     end function
     
-    function coord_add overload (a as ccoord, b as DirVect) as ccoord
-	dim as ccoord c
+    function coord_add overload (a as coord, b as DirVect) as coord
+	dim as coord c
 	c.x = a.x + b.dx
 	c.y = a.y + b.dy
 	return c

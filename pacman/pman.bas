@@ -2,9 +2,8 @@
     'Remove this define for a more traditional maze
     '#define V2023
     
-    'Odd spelling to avoid conflict with windef.bi
-    #define MMIN(a,b)  (iif((a) < (b), (a), (b)))
-    #define MMAX(a,b)  (iif((a) > (b), (a), (b)))
+    #define MIN(a,b)  (iif((a) < (b), (a), (b)))
+    #define MAX(a,b)  (iif((a) > (b), (a), (b)))
     'These includes have nothing specific to pman
     #include "gaming.bas"
     #include "alphatext.bas"
@@ -17,9 +16,9 @@
     #define GHOST_HOME 3
     #define WALL 4
     #define HOME_WALL 5
-    dim shared as ccoord ghost_door
+    dim shared as coord ghost_door
     dim shared as integer total_food
-    dim shared as ccoord pman_start
+    dim shared as coord pman_start
     dim shared as integer maze(any, any), saved_maze(any,any)
 
     'graphics objects
@@ -41,8 +40,8 @@
     #define CLYDE 4
     #define MAX_GHOSTS 4
     type ghost
-	as ccoord corner
-	as ccoord home
+	as coord corner
+	as coord home
 	as sprite gsprite
 	as double start_time
 	as integer algorithm
@@ -52,14 +51,18 @@
     dim shared as blockfont win_font
     dim shared as blockfont score_font
     dim shared as blockfont bonus_font
+    dim shared as integer food_factor
+    dim shared as sprite food_sprite
 
-    #include "assets.bas"
     #include "sounds.bas"
+    #ifndef VLAYOFFS
+    #include "assets.bas"
+    #endif
 
     'general gameplay variables
     #define MAX_BONUSES 10
     type display_bonus
-	as ccoord mz
+	as coord mz
 	as double expiration
 	as integer bonus_val
     end type
@@ -91,6 +94,10 @@
 	sp->x = (sp->mz.x - 1) * maze_xfactor + maze_xfactor/2 - sp->w/2
 	sp->y = (sp->mz.y - 1) * maze_yfactor + maze_yfactor/2 - sp->h/2
     end sub
+
+    #ifdef VLAYOFFS
+    #include "assets_lo.bas"
+    #endif
 
     sub reset_pman
 	with pman
@@ -254,7 +261,7 @@
 	return 0
     end function
 
-    function ghost_can_go_there(sp as sprite ptr, c as ccoord) as integer
+    function ghost_can_go_there(sp as sprite ptr, c as coord) as integer
 	if MAZE_AT(c) = WALL then return 0
 	if MAZE_AT(c) < WALL then return 1
 	'Get here if the ghost is trying to go through the door of the ghost
@@ -267,11 +274,11 @@
 
     'These ghost target selections are pretty close to what is
     'described here https://www.gamedeveloper.com/design/the-pac-man-dossier
-    function blinky_goal(g as ghost ptr) as ccoord
+    function blinky_goal(g as ghost ptr) as coord
 	return pman.mz
     end function
 	
-    function clyde_goal(g as ghost ptr) as ccoord
+    function clyde_goal(g as ghost ptr) as coord
 	dim as double d = DISTANCE(pman.mz, g->gsprite.mz)
 	'8?? Apparently that's the clyde algorithm
 	if d > 8 then
@@ -281,8 +288,8 @@
 	end if
     end function
 
-    function pinky_goal(g as ghost ptr) as ccoord
-	dim as ccoord c
+    function pinky_goal(g as ghost ptr) as coord
+	dim as coord c
 	dim as DirVect v
 	for i as integer = 5 to 0 step -1
 	    v.dx = i * pman.cur_dir.dx
@@ -300,8 +307,8 @@
     'in the original game inky's target is calculated based on both pman's
     'location and blinky, but I want to support an arbitrary selection of ghosts
     'which may not have a blinky, so I prefer each ghost be independent 
-    function inky_goal(g as ghost ptr) as ccoord
-	dim as ccoord c
+    function inky_goal(g as ghost ptr) as coord
+	dim as coord c
 	dim as DirVect v
 	'find a random location somewhere near pman that is not a wall
 	for i as integer = 1 to 4
@@ -321,7 +328,7 @@
     'Select one of the 4 adjacent tiless for the ghost to move to. Most of the
     'process is the same for all ghosts with just the hunting behavior different
     sub ghost_new_target(g as ghost ptr)
-	dim as ccoord goal
+	dim as coord goal
 	if time_now < g->start_time then
 	    'Either the ghost has been eaten and should return to the ghost
 	    'house and be there for a while, or it has not started yet and 
@@ -373,7 +380,7 @@
 		    continue for
 		end if
 		
-		dim as ccoord td = coord_add(g->gsprite.mz, Directions(i))
+		dim as coord td = coord_add(g->gsprite.mz, Directions(i))
 		if  ghost_can_go_there(@(g->gsprite), td) then
 		    dim as double dist = DISTANCE(td, goal)
 		    if dist < shortest then
@@ -472,6 +479,9 @@
 	    dim as integer c = (pman.frame_count \ frames_per_image) mod 2
 	    dim as integer imgn
 	    imgn = 5
+	    #ifdef VLAYOFFS
+	    c = 1
+	    #endif
 	    if c = 1 then
 		for i as integer = 1 to 4
 		    if DirVectSame(pman.cur_dir, Directions(i)) then
@@ -509,7 +519,7 @@
     end sub
 
     'When pman eats a ghost we draw on the screen the bonus amount.
-    sub add_bonus(mz as ccoord, amount as integer, expiration as double)
+    sub add_bonus(mz as coord, amount as integer, expiration as double)
 	bonusc += 1
 	assert(bonusc < MAX_BONUSES)
 	with bonuses(bonusc)
@@ -556,7 +566,7 @@
     sub pick_resolution
 	dim as integer res
 	do
-	    print "Pick your game resolution:"
+	    print "Pick you game resolution:"
 	    print "1) 800x600"
 	    print "2) 1024x768"
 	    print "3) 1280x720"
@@ -578,11 +588,13 @@
 	    maze_yfactor = 16
 	    sprite_xfactor = 1
 	    sprite_yfactor = 1
+	    food_factor = 1
 	    #else
 	    maze_xfactor = 26
 	    maze_yfactor = 20
 	    sprite_xfactor = 2
 	    sprite_yfactor = 2
+	    food_factor = 1
 	    #endif
 	    wall_thickness = 3
 	    winfont_factor = 10
@@ -601,6 +613,7 @@
 	    wall_thickness = 3
 	    sprite_xfactor = 2
 	    sprite_yfactor = 2
+	    food_factor = 1
 	    winfont_factor = 15
 	    scorefont_factor = 4
 	    bonusfont_factor = 2
@@ -617,6 +630,7 @@
 	    wall_thickness = 3
 	    sprite_xfactor = 2
 	    sprite_yfactor = 2
+	    food_factor = 2
 	    winfont_factor = 16
 	    scorefont_factor = 5
 	    bonusfont_factor = 2
@@ -633,6 +647,7 @@
 	    wall_thickness = 3
 	    sprite_xfactor = 2
 	    sprite_yfactor = 2
+	    food_factor = 2
 	    winfont_factor = 18
 	    scorefont_factor = 5
 	    bonusfont_factor = 2
@@ -649,6 +664,7 @@
 	    wall_thickness = 3
 	    sprite_xfactor = 2
 	    sprite_yfactor = 2
+	    food_factor = 2
 	    winfont_factor = 20
 	    scorefont_factor = 5
 	    bonusfont_factor = 2
@@ -664,6 +680,7 @@
 	    wall_thickness = 3
 	    sprite_xfactor = 2
 	    sprite_yfactor = 2
+	    food_factor = 2
 	    winfont_factor = 24
 	    scorefont_factor = 6
 	    bonusfont_factor = 2
@@ -680,6 +697,7 @@
 	    wall_thickness = 3
 	    sprite_xfactor = 3
 	    sprite_yfactor = 3
+	    food_factor = 2
 	    winfont_factor = 30
 	    scorefont_factor = 8
 	    bonusfont_factor = 3
@@ -703,6 +721,9 @@
     def_letters
     def_pman
     def_ghosts
+    #ifdef VLAYOFFS
+    def_food
+    #endif
 
     bonus_font = make_font(bonusfont_factor, bonusfont_factor, "W")
     win_font = make_font(winfont_factor, winfont_factor, "W")
@@ -714,9 +735,20 @@
     #else
     #define V2023NAME ""
     #endif
+    #ifdef VLAYOFFS
+	#define GNAME "TECHMAN"
+	#define SUCCESSM "RETIRE" NL "RICH!"
+	#define TAGLINE "AVOID LAYOFFS "
+	#define FAILM "LAYED" NL "OFF!"
+    #else
+    #define GNAME "PMAN"
+    #define SUCCESSM "WINNER"
+    #define TAGLINE ""
+    #define FAILM "SORRY!"
+    #endif
     draw_centered(screen_w, screen_h, _
-		  "WELCOME TO PMAN" NL _
-		  V2023NAME NL  _
+		  "WELCOME TO " GNAME NL _
+		  TAGLINE V2023NAME NL  _
 		  "KEYS:           " NL _
 		  " W,A,S,D TO MOVE" NL _
 		  "       / TO QUIT" NL NL _
@@ -797,9 +829,9 @@
 	loop while (food_left > 0) and (lives > 0)
 
 	if food_left = 0 then
-	    flash_maze(maze_walls_image, "WINNER!", @win_font)
+	    flash_maze(maze_walls_image, SUCCESSM, @win_font)
 	elseif lives = 0 then
-	    flash_maze(maze_walls_image, "SORRY!", @win_font)	
+	    flash_maze(maze_walls_image, FAILM, @win_font)	
 	    cls
 	    draw_centered(screen_w, screen_h, _
 			  "YOUR SCORE:" NL _

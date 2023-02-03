@@ -3,174 +3,171 @@
     #endif
 
     sub def_pman
-	dim as string pman_closed_s = _
-	    "      YYYY      " NL _
-	    "    YYYYYYYY    " NL _
-	    "   YYYYYYYYYY   " NL _
-	    "  YYYYYYYYYYYY  " NL _
-	    " YYYYYYYYYYYYYY " NL _
-	    " YYYYYYYYYYYYYY " NL _
-	    "YYYYYYYYYYYYYYYY" NL _
-	    "YYYYYYYYYYYYYYYY" NL _
-	    "YYYYYYYYYYYYYYYY" NL _
-	    "YYYYYYYYYYYYYYYY" NL _
-	    " YYYYYYYYYYYYYY " NL _
-	    " YYYYYYYYYYYYYY " NL _
-	    "  YYYYYYYYYYYY  " NL _
-	    "   YYYYYYYYYY   " NL _
-	    "    YYYYYYYY    " NL _
-	    "      YYYY      "
-	dim as string pman_left_s = _
-	    "      YYYY      " NL _
-	    "    YYYYYYYY    " NL _
-	    "   YYYYYYYYYY   " NL _
-	    "  YYYYYYYYYYYY  " NL _
-	    " YYYYYYYYYYYYYY " NL _
-	    "    YYYYYYYYYYY " NL _
-	    "       YYYYYYYYY" NL _
-	    "           YYYYY" NL _
-	    "           YYYYY" NL _
-	    "       YYYYYYYYY" NL _
-	    "    YYYYYYYYYYY " NL _
-	    " YYYYYYYYYYYYYY " NL _
-	    "  YYYYYYYYYYYY  " NL _
-	    "   YYYYYYYYYY   " NL _
-	    "    YYYYYYYY    " NL _
-	    "      YYYY      "
+ 	dim as string pman_closed_s = _
+	    "    bbbbbbbbb   " NL _
+	    "  bbbbbbbbbbbbb " NL _
+	    "  bbWWXWWWXWWbb " NL _
+	    "   bbWWWWWWWbb  " NL _
+	    "     xxxxxxx    " NL _
+	    "    sxxxxxxxs   " NL _
+	    "  sssxxxWWxxsss " NL _
+	    " ssssxxWWWxxssss" NL _
+	    " ssssxxxxxxxssss" NL _
+	    " MMMMxxxxxxxMMMM" NL _
+	    " MMMMMMMMMMMMMMM" NL _
+	    "  MMMxxxxxxxMMM " NL _
+	    "  MMMxxxxxxxMMM " NL _
+	    "  MMM  xxx  MMM " NL _
+	    "  MMM  xxx  MMM " NL _	
+	    "  MMMxxxxxxxMMM " 
+
+      dim as string pman_left_s = _
+	    "       bbbbbb   " NL _
+	    "        WWbbbb  " NL _
+	    "       WWWWbbbb " NL _
+	    "xxY      WWWbbb " NL _
+	    "xxY        WW   " NL _
+	    "xxY     sssssxx " NL _
+	    "xxY sssssssssxx " NL _
+	    "xxxxxx  sssssxx " NL _
+	    "    sssssssssxx " NL _
+	    "   MMMMMMMMXsxx " NL _
+	    "  MMMMMMMMMMMxx " NL _
+	    "  MMMxxxxxxxxxx " NL _
+	    "  MMMxxxxxxxxxx " NL _
+	    "  MMM   xxx     " NL _
+	    "  MMM   xxx     " NL _
+	    "  MMM xxxxxxx   "
 
 	dim as string pman_up_s = _
-	    "                " NL _
-            "    Y      Y    " NL _
-	    "   YY      YY   " NL _
-	    "  YYY      YYY  " NL _
-	    " YYYYY    YYYYY " NL _
-	    " YYYYY    YYYYY " NL _
-	    "YYYYYY    YYYYYY" NL _
-	    "YYYYYYY  YYYYYYY" NL _
-	    "YYYYYYY  YYYYYYY" NL _
-	    "YYYYYYY  YYYYYYY" NL _
-	    " YYYYYY  YYYYYY " NL _
-	    " YYYYYYYYYYYYYY " NL _
-	    "  YYYYYYYYYYYY  " NL _
-	    "   YYYYYYYYYY   " NL _
-	    "    YYYYYYYY    " NL _
-	    "      YYYY      "
+	    "    bbbbbbbbb   " NL _
+	    "  bbbbbbbbbbbbb " NL _
+	    "  bbbbbbbbbbbbb " NL _
+	    "   bbbbbbbbbbb  " NL _
+	    "      WWWWW     " NL _
+	    "    xxxxxxxxx   " NL _
+	    "  xxxxxxxxxxxxx " NL _
+	    " xxxxxxXXXxxxxxx" NL _
+	    " xxxxxxXXXxxxxxx" NL _
+	    " MxxxxxXXXxxxxxM" NL _
+	    " MMMxxxXXXxxxMMM" NL _
+	    "  xxxxxxxxxxxxx " NL _
+	    "  xxxxxxxxxxxxx " NL _
+	    "  MMM  xxx  MMM " NL _
+	    "  MMM  xxx  MMM " NL _	
+	    "  MMMxxxxxxxMMM " 
 
 	dim as string pman_down_s = _
-	    "      YYYY      " NL _
-	    "    YYYYYYYY    " NL _
-	    "   YYYYYYYYYY   " NL _
-	    "  YYYYYYYYYYYY  " NL _
-	    " YYYYYYYYYYYYYY " NL _
-	    " YYYYYY  YYYYYY " NL _
-	    "YYYYYYY  YYYYYYY" NL _
-	    "YYYYYYY  YYYYYYY" NL _
-	    "YYYYYYY  YYYYYYY" NL _
-	    "YYYYYY    YYYYYY" NL _
-	    " YYYYY    YYYYY " NL _
-	    " YYYYY    YYYYY " NL _
-	    "  YYY      YYY  " NL _
-	    "   YY      YY   " NL _
-	    "    Y      Y    " NL _	
-	    "                " 
+	    "    bbbbbbbbb   " NL _
+	    "  bbbbbbbbbbbbb " NL _
+	    "  bbWWXWWWXWWbb " NL _
+	    "   bbWWWWWWWbb  " NL _
+	    "     xxxxxxx    " NL _
+	    "    sxxxxxxxs   " NL _
+	    "  sssxxxWWxxsss " NL _
+	    " ssssxxWWWxxssss" NL _
+	    " ssssxxxxxxxssss" NL _
+	    " MMMMxxxxxxxMMMM" NL _
+	    " MMMMMMMMMMMMMMM" NL _
+	    "  MMMxxxxxxxMMM " NL _
+	    "  MMMxxxxxxxMMM " NL _
+	    "  MMM  xxx  MMM " NL _
+	    "  MMM  xxx  MMM " NL _	
+	    "  MMMxxxxxxxMMM " 
 
-	dim as string pman_right_s = _
-	    "      YYYY      " NL _
-	    "    YYYYYYYY    " NL _
-	    "   YYYYYYYYYY   " NL _
-	    "  YYYYYYYYYYYY  " NL _
-	    " YYYYYYYYYYYYYY " NL _
-	    " YYYYYYYYYYY    " NL _
-	    "YYYYYYYYY       " NL _
-	    "YYYYY           " NL _
-	    "YYYYY           " NL _
-	    "YYYYYYYYY       " NL _
-	    " YYYYYYYYYYY    " NL _
-	    " YYYYYYYYYYYYYY " NL _
-	    "  YYYYYYYYYYYY  " NL _
-	    "   YYYYYYYYYY   " NL _
-	    "    YYYYYYYY    " NL _
-	    "      YYYY      "
+     dim as string pman_right_s = _
+	    "   bbbbbb       " NL _
+	    "  bbbbWW        " NL _
+	    " bbbbWWWW       " NL _
+	    " bbbWWW      Yxx" NL _
+	    "   WW        Yxx" NL _
+	    " xxsssss     Yxx" NL _
+	    " xxsssssssss Yxx" NL _
+	    " xxsssss  xxxxxx" NL _
+	    " xxsssssssss    " NL _
+	    " xxsXMMMMMMMM   " NL _
+	    " xxMMMMMMMMMMM  " NL _
+	    " xxxxxxxxxxMMM  " NL _
+	    " xxxxxxxxxxMMM  " NL _
+	    "     xxx   MMM  " NL _
+	    "     xxx   MMM  " NL _
+	    "   xxxxxxx MMM  "
 
 
-	dim as string pman_eaten1 = _
-	    "                " NL _
-	    "                " NL _
-	    "                " NL _
-	    "                " NL _
-	    "                " NL _
-	    " Y            Y " NL _
-	    "YYY          YYY" NL _
-	    "YYYY        YYYY" NL _
-	    "YYYYY      YYYYY" NL _
-	    "YYYYYY   YYYYYYY" NL _
-	    " YYYYYY  YYYYYY " NL _
-	    " YYYYYYYYYYYYYY " NL _
-	    "  YYYYYYYYYYYY  " NL _
-	    "   YYYYYYYYYY   " NL _
-	    "    YYYYYYYY    " NL _
-	    "      YYYY      "
-     
-	dim as string pman_eaten2 = _
-	    "                " NL _
-	    "                " NL _
-	    "                " NL _
-	    "                " NL _
-	    "                " NL _
-	    "                " NL _
-	    "                " NL _
-	    "                " NL _
-	    "                " NL _
-	    "YY            YY" NL _
-	    " YYYY      YYYY " NL _
-	    " YYYYYYYYYYYYYY " NL _
-	    "  YYYYYYYYYYYY  " NL _
-	    "   YYYYYYYYYY   " NL _
-	    "    YYYYYYYY    " NL _
-	    "      YYYY      " NL _
-     
-     
-     
-                  
-	dim as string pman_eaten3 = _	    
-	    "                " NL _
-	    "                " NL _
-	    "                " NL _
-	    "                " NL _
-	    "                " NL _
-	    "                " NL _
-	    "                " NL _
-	    "                " NL _
-	    "                " NL _
-	    "                " NL _
-	    "                " NL _
-	    "     YYYYYY     " NL _  
-	    "    YYYYYYYY    " NL _
-	    "   YYYYYYYYYY   " NL _
-	    "    YYYYYYYY    " NL _
-	    "      YYYY      " NL _
-     
-     
-	dim as string pman_eaten4 = _	    
-	    "                " NL _
-	    "                " NL _
-	    "                " NL _
-	    "                " NL _
-	    "                " NL _
-	    "                " NL _
-	    "                " NL _
-	    "                " NL _
-	    "                " NL _
-	    "                " NL _
-	    "                " NL _
-	    "                " NL _
-	    "     YYYYYY     " NL _
-	    "     YYYYYY     " NL _
-	    "      YYYY      " NL _
-	    "       YY       " NL _
 			 
+ 	dim as string pman_eaten1 = _
+	    "                " NL _
+	    "                " NL _
+	    "                " NL _
+	    "   bbWWWWWWWbb  " NL _
+	    "     xxxxxxx    " NL _
+	    "    sxxxxxxxs   " NL _
+	    "  sssxxxWWxxsss " NL _
+	    " ssssxxWWWxxssss" NL _
+	    " ssssxxxxxxxssss" NL _
+	    " MMMMxxxxxxxMMMM" NL _
+	    " MMMMMMMMMMMMMMM" NL _
+	    "  MMMxxxxxxxMMM " NL _
+	    "  MMMxxxxxxxMMM " NL _
+	    "  MMM  xxx  MMM " NL _
+	    "  MMM  xxx  MMM " NL _	
+	    "  MMMxxxxxxxMMM " 
      
-	dim as string pman_eaten5 = _	    
+ 	dim as string pman_eaten2 = _
+	    "                " NL _
+	    "                " NL _
+	    "                " NL _
+	    "                " NL _
+	    "                " NL _
+	    "                " NL _
+	    "  sssxxxWWxxsss " NL _
+	    " ssssxxWWWxxssss" NL _
+	    " ssssxxxxxxxssss" NL _
+	    " MMMMxxxxxxxMMMM" NL _
+	    " MMMMMMMMMMMMMMM" NL _
+	    "  MMMxxxxxxxMMM " NL _
+	    "  MMMxxxxxxxMMM " NL _
+	    "  MMM  xxx  MMM " NL _
+	    "  MMM  xxx  MMM " NL _	
+	    "  MMMxxxxxxxMMM " 
+
+ 	dim as string pman_eaten3 = _
+	    "                " NL _
+	    "                " NL _
+	    "                " NL _
+	    "                " NL _
+	    "                " NL _
+	    "                " NL _
+	    "                " NL _
+	    "                " NL _
+	    "                " NL _
+	    " MMMMxxxxxxxMMMM" NL _
+	    " MMMMMMMMMMMMMMM" NL _
+	    "  MMMxxxxxxxMMM " NL _
+	    "  MMMxxxxxxxMMM " NL _
+	    "  MMM  xxx  MMM " NL _
+	    "  MMM  xxx  MMM " NL _	
+	    "  MMMxxxxxxxMMM " 
+
+ 	dim as string pman_eaten4 = _
+	    "                " NL _
+	    "                " NL _
+	    "                " NL _
+	    "                " NL _
+	    "                " NL _
+	    "                " NL _
+	    "                " NL _
+	    "                " NL _
+	    "                " NL _
+	    "                " NL _
+	    "                " NL _
+	    "                " NL _
+	    "  MMMxxxxxxxMMM " NL _
+	    "  MMM  xxx  MMM " NL _
+	    "  MMM  xxx  MMM " NL _	
+	    "  MMMxxxxxxxMMM " 
+
+dim as string pman_eaten5 = _	    
 	    "Y              Y" NL _       	
 	    " Y   Y    Y   Y " NL _       	
 	    "  Y   Y  Y   Y  " NL _       	
@@ -206,214 +203,216 @@
 
     sub def_ghosts
 	dim as string ghost_left_1 = _
-	    "    ########    " NL _
-	    "  ############  " NL _
-	    "  ############  " NL _
-	    " ############## " NL _
-	    "##WWW####WWW####" NL _
-	    "#XXWWW##XXWWW###" NL _
- 	    "#XXWWW##XXWWW###" NL _
-	    "##WWW####WWW####" NL _
+	    "    BBBBBBBB    " NL _
+	    "  BBBBBBBBBBBB  " NL _
+	    "   WWWXWWWWBBB  " NL _
+	    "  WWWWWWWWWBBB  " NL _
+	    "    WWWWWWWW    " NL _
+	    "      WWWW      " NL _
+ 	    "   #WXXWW#####  " NL _
+	    " ##WXXXXWW##### " NL _
+	    "####WXXWW#######" NL _
+	    "####WXXWW#######" NL _
+	    "#####WXXWW######" NL _
+ 	    "BBBBBBBBBBBBBBBB" NL _
 	    "################" NL _
-	    "################" NL _
-	    "################" NL _
- 	    "################" NL _
-	    "################" NL _
-	    "################" NL _
-	    "##  ###  ###  ##" NL _
-	    "#    #    #    #" 
+	    "  ####   ####   " NL _
+	    "BB###     ###   " NL _
+	    " BB      BBBB   " 
 
 	dim as string ghost_left_2 = _
-	    "    ########    " NL _
-	    "  ############  " NL _
-	    "  ############  " NL _
-	    " ############## " NL _
-	    "##WWW####WWW####" NL _
-	    "#XXWWW##XXWWW###" NL _
- 	    "#XXWWW##XXWWW###" NL _
-	    "##WWW####WWW####" NL _
+	    "    BBBBBBBB    " NL _
+	    "  BBBBBBBBBBBB  " NL _
+	    "   WWWXWWWWBBB  " NL _
+	    "  WWWWWWWWWBBB  " NL _
+	    "    WWWWWWWW    " NL _
+	    "      WWWW      " NL _
+ 	    "   #WXXWW#####  " NL _
+	    " ##WXXXXWW##### " NL _
+	    "####WXXWW#######" NL _
+	    "####WXXWW#######" NL _
+	    "#####WXXWW######" NL _
+ 	    "BBBBBBBBBBBBBBBB" NL _
 	    "################" NL _
-	    "################" NL _
-	    "################" NL _
- 	    "################" NL _
-	    "################" NL _
-	    "################" NL _
-	    " ###  ###  ### " NL _
-	    "  #    #    #  " 
+	    "  ####  ####    " NL _
+	    "  ###    ###BB  " NL _
+	    " BBBB     BBB   " 
 
 	dim as string ghost_right_1 = _
-	    "    ########    " NL _
-	    "  ############  " NL _
-	    "  ############  " NL _
-	    " ############## " NL _
-	    "####WWW####WWW##" NL _
-	    "###WWWXX##WWWXX#" NL _
- 	    "###WWWXX##WWWXX#" NL _
-	    "####WWW####WWW##" NL _
+	    "    BBBBBBBB    " NL _
+	    "  BBBBBBBBBBBB  " NL _
+	    "  BBBWWWWXWWW   " NL _
+	    "  BBBWWWWWWWWW  " NL _
+	    "    WWWWWWWW    " NL _
+            "      WWWW      " NL _
+	    "  #####WWXXW#   " NL _
+ 	    " #####WWXXXXW## " NL _
+	    "#######WWXXW####" NL _
+	    "#######WWXXW####" NL _
+	    "######WWXXW#####" NL _
+	    "BBBBBBBBBBBBBBBB" NL _
 	    "################" NL _
-	    "################" NL _
-	    "################" NL _
- 	    "################" NL _
-	    "################" NL _
-	    "################" NL _
-	    "##  ###  ###  ##" NL _
-	    "#    #    #    #" 
+	    "    ####  ####  " NL _
+	    "  BB###    ###  " NL _
+	    "   BBB     BBBB " 
 
 	dim as string ghost_right_2 = _
-	    "    ########    " NL _
-	    "  ############  " NL _
-	    "  ############  " NL _
-	    " ############## " NL _
-	    "####WWW####WWW##" NL _
-	    "###WWWXX##WWWXX#" NL _
- 	    "###WWWXX##WWWXX#" NL _
-	    "####WWW####WWW##" NL _
+	    "    BBBBBBBB    " NL _
+	    "  BBBBBBBBBBBB  " NL _
+	    "  BBBWWWWXWWW   " NL _
+	    "  BBBWWWWWWWWW  " NL _
+	    "    WWWWWWWW    " NL _
+            "      WWWW      " NL _
+	    "  #####WWXXW#   " NL _
+ 	    " #####WWXXXXW## " NL _
+	    "#######WWXXW####" NL _
+	    "#######WWXXW####" NL _
+	    "######WWXXW#####" NL _
+	    "BBBBBBBBBBBBBBBB" NL _
+	    "################" NL _
+	    "    ####  ####  " NL _
+	    "    ###    ##BB " NL _
+	    "    BBBB    BB  " 
+
+       dim as string ghost_up_1 = _
+	    "    BBBBBBBB    " NL _
+	    "  BBBBBBBBBBBB  " NL _
+	    "  BBBBBBBBBBBB  " NL _
+	    "  BBBBBBBBBBBB  " NL _
+	    "    WWWWWWWW    " NL _
+            "      WWWW      " NL _
+            "  ############  " NL _
+ 	    " ############## " NL _
 	    "################" NL _
 	    "################" NL _
 	    "################" NL _
- 	    "################" NL _
+	    "BBBBBBBBBBBBBBBB" NL _
 	    "################" NL _
-	    "################" NL _
-	    " ###  ###  ### " NL _
-	    "  #    #    #  " 
-	dim as string ghost_up_1 = _
-	    "    ########    " NL _
-	    "  ############  " NL _
-	    "  ############  " NL _
-	    " ############## " NL _
-	    "###WXX####XXW###" NL _
-	    "##WWXXW##WXXWW##" NL _
- 	    "##WWWWW##WWWWW##" NL _
-	    "###WWW####WWW###" NL _
-	    "################" NL _
-	    "################" NL _
-	    "################" NL _
- 	    "################" NL _
-	    "################" NL _
-	    "################" NL _
-	    "##  ###  ###  ##" NL _
-	    "#    #    #    #" 
+	    "  #####  #####  " NL _
+	    "   ###    ###   " NL _
+	    "          BBB   " 
 
 	dim as string ghost_up_2 = _
-	    "    ########    " NL _
-	    "  ############  " NL _
-	    "  ############  " NL _
-	    " ############## " NL _
-	    "###WXX####XXW###" NL _
-	    "##WWXXW##WXXWW##" NL _
- 	    "##WWWWW##WWWWW##" NL _
-	    "###WWW####WWW###" NL _
+	    "    BBBBBBBB    " NL _
+	    "  BBBBBBBBBBBB  " NL _
+	    "  BBBBBBBBBBBB  " NL _
+	    "  BBBBBBBBBBBB  " NL _
+	    "    WWWWWWWW    " NL _
+            "      WWWW      " NL _
+            "  ############  " NL _
+ 	    " ############## " NL _
 	    "################" NL _
 	    "################" NL _
 	    "################" NL _
- 	    "################" NL _
+	    "BBBBBBBBBBBBBBBB" NL _
 	    "################" NL _
-	    "################" NL _
-	    " ###  ###  ### " NL _
-	    "  #    #    #  " 
-	dim as string ghost_down_1 = _
-	    "    ########    " NL _
-	    "  ############  " NL _
-	    "  ############  " NL _
-	    " ############## " NL _
-	    "###WWW####WWW###" NL _
-	    "##WWWWW##WWWWW##" NL _
- 	    "##WWXXW##WXXWW##" NL _
-	    "###WXX####XXW###" NL _
-	    "################" NL _
-	    "################" NL _
-	    "################" NL _
- 	    "################" NL _
-	    "################" NL _
-	    "################" NL _
-	    "##  ###  ###  ##" NL _
-	    "#    #    #    #" 
+	    "  #####  #####  " NL _
+	    "   ###    ###   " NL _
+	    "   BBB          " 
 
-	dim as string ghost_down_2 = _
-	    "    ########    " NL _
-	    "  ############  " NL _
-	    "  ############  " NL _
-	    " ############## " NL _
-	    "###WWW####WWW###" NL _
-	    "##WWWWW##WWWWW##" NL _
- 	    "##WWXXW##WXXWW##" NL _
-	    "###WXX####XXW###" NL _
+dim as string ghost_down_1 = _
+	    "    BBBBBBBB    " NL _
+	    "  BBBWWWWWWBBB  " NL _
+	    "  BBWXWWWWXWBB  " NL _
+	    "  BBWWWWWWWWBB  " NL _
+	    "    WWWWWWWW    " NL _
+            "      WWWW      " NL _
+            "  ###WWXWW####  " NL _
+ 	    " ###WWXXXWW#### " NL _
+	    "####WWXXXWW#####" NL _
+	    "#####WWXWW######" NL _
+	    "#####WWXWW######" NL _
+	    "BBBBBBBBBBBBBBBB" NL _
 	    "################" NL _
+	    "  #####  #####  " NL _
+	    "   ###    ###   " NL _
+	    "   BBB          " 
+
+     dim as string ghost_down_2 = _
+	    "    BBBBBBBB    " NL _
+	    "  BBBWWWWWWBBB  " NL _
+	    "  BBWXWWWWXWBB  " NL _
+	    "  BBWWWWWWWWBB  " NL _
+	    "    WWWWWWWW    " NL _
+            "      WWWW      " NL _
+            "  ###WWXWW####  " NL _
+ 	    " ###WWXXXWW#### " NL _
+	    "####WWXXXWW#####" NL _
+	    "#####WWXWW######" NL _
+	    "#####WWXWW######" NL _
+	    "BBBBBBBBBBBBBBBB" NL _
 	    "################" NL _
-	    "################" NL _
- 	    "################" NL _
-	    "################" NL _
-	    "################" NL _
-	    " ###  ###  ### " NL _
-	    "  #    #    #  " 
+	    "  #####  #####  " NL _
+	    "   ###    ###   " NL _
+	    "          BBB   " 
 
 	dim as string ghost_fleeing_1 = _
 	    "    ########    " NL _
 	    "  ############  " NL _
-	    "  ############  " NL _
-	    " ############## " NL _
+	    "  ###XX##XX###  " NL _
+	    "  ###XX##XX###  " NL _
+	    "    ########    " NL _
+            "      ####      " NL _
+            "  ###WWXWW####  " NL _
+ 	    " ###WWXXXWW#### " NL _
+	    "####WWXXXWW#####" NL _
+	    "#####WWXXW######" NL _
+	    "#####WWWXX######" NL _
 	    "################" NL _
-	    "###OOO####OOO###" NL _
- 	    "###OOO####OOO###" NL _
 	    "################" NL _
-	    "################" NL _
-	    "###OO##OO##OO###" NL _
-	    "#OO##OO##OO##OO#" NL _
- 	    "################" NL _
-	    "################" NL _
-	    "################" NL _
-	    "##  ###  ###  ##" NL _
-	    "#    #    #    #" 
+	    "  #####  #####  " NL _
+	    "   ###    ###   " NL _
+	    "   ###          " 
 
 	dim as string ghost_fleeing_2 = _
 	    "    ########    " NL _
 	    "  ############  " NL _
-	    "  ############  " NL _
-	    " ############## " NL _
+	    "  ###XX##XX###  " NL _
+	    "  ###XX##XX###  " NL _
+	    "    ########    " NL _
+            "      ####      " NL _
+            "  ###WWXWW####  " NL _
+ 	    " ###WWXXXWW#### " NL _
+	    "####WWXXXWW#####" NL _
+	    "#####WXXWW######" NL _
+	    "#####XXWWW######" NL _
 	    "################" NL _
-	    "###OOO####OOO###" NL _
- 	    "###OOO####OOO###" NL _
 	    "################" NL _
- 	    "################" NL _
-	    "###OO##OO##OO###" NL _
-	    "#OO##OO##OO##OO#" NL _
- 	    "################" NL _
-	    "################" NL _
-	    "################" NL _
-	    " ###  ###  ### " NL _
-	    "  #    #    #  " 
+	    "  #####  #####  " NL _
+	    "   ###    ###   " NL _
+	    "          ###   " 
 
 	dim as string ghost_eyes_left = _
-	    "                " NL _
-	    "                " NL _
-	    "                " NL _
 	    "                " NL _
 	    "  WWW    WWW    " NL _
 	    " XXWWW  XXWWW   " NL _
  	    " XXWWW  XXWWW   " NL _
 	    "  WWW    WWW    " NL _
 	    "                " NL _
+	    "     WXXWW      " NL _
+	    "     WXXXXW     " NL _
+ 	    "     WXXWW      " NL _
+	    "     WXXWW      " NL _
+	    "      WXXWW     " NL _
 	    "                " NL _
-	    "                " NL _
- 	    "                " NL _
 	    "                " NL _
 	    "                " NL _
 	    "                " NL _
 	    "                " 
 
 	dim as string ghost_eyes_right = _
-	    "                " NL _
-	    "                " NL _
-	    "                " NL _
-	    "                " NL _
+ 	    "                " NL _
 	    "    WWW    WWW  " NL _
 	    "   WWWXX  WWWXX " NL _
- 	    "   WWWXX  WWWXX " NL _
+	    "   WWWXX  WWWXX " NL _
 	    "    WWW    WWW  " NL _
 	    "                " NL _
+	    "      WWXXW     " NL _
+ 	    "     WXXXXW     " NL _
+	    "      WWXXW     " NL _
+	    "      WWXXW     " NL _
+	    "     WWXXW      " NL _
 	    "                " NL _
-	    "                " NL _
- 	    "                " NL _
 	    "                " NL _
 	    "                " NL _
 	    "                " NL _
@@ -421,35 +420,35 @@
 
 	dim as string ghost_eyes_up = _
 	    "                " NL _
-	    "                " NL _
-	    "                " NL _
-	    "                " NL _
 	    "   WXX    XXW   " NL _
 	    "  WWXXW  WXXWW  " NL _
  	    "  WWWWW  WWWWW  " NL _
 	    "   WWW    WWW   " NL _
 	    "                " NL _
+	    "     WWXWW      " NL _
+	    "    WWXXXWW     " NL _
+ 	    "    WWXXXWW     " NL _
+	    "     WWXWW      " NL _
+	    "     WWXWW      " NL _
+	    "                " NL _
 	    "                " NL _
 	    "                " NL _
  	    "                " NL _
-	    "                " NL _
-	    "                " NL _
-	    "                " NL _
 	    "                " 
 
 	dim as string ghost_eyes_down = _
-	    "                " NL _
-	    "                " NL _
-	    "                " NL _
 	    "                " NL _
 	    "   WWW    WWW   " NL _
 	    "  WWWWW  WWWWW  " NL _
  	    "  WWXXW  WXXWW  " NL _
 	    "   WXX    XXW   " NL _
 	    "                " NL _
+	    "     WWXWW      " NL _
+	    "    WWXXXWW     " NL _
+ 	    "    WWXXXWW     " NL _
+	    "     WWXWW      " NL _
+	    "     WWXWW      " NL _
 	    "                " NL _
-	    "                " NL _
- 	    "                " NL _
 	    "                " NL _
 	    "                " NL _
 	    "                " NL _
@@ -511,6 +510,34 @@
 				DYING, ghosts(i).gsprite)
 		
 	next
+    end sub
+
+    sub def_food
+        dim as string food_string = _
+	  "  G  " NL _
+	  " GGG " NL _
+          "G    " NL _
+	  " GGG " NL _
+	  "    G" NL _
+	  " GGG " NL _
+	  "  G  "
+
+        dim as string power_string = _
+	  "W      W   WWWW " NL _
+	  "W  W   W  W    W" NL _
+	  "W  W   W  W    W" NL _
+          "WWW WWW    WWWW " NL _
+	  "                " NL _
+	  "WWWW     W   WW " NL _
+	  "W   W    W  WW  " NL _
+	  "WWWW     WWW    " NL _
+	  "W   WW   W  WW  " NL _
+	  "W    WW  W   WW "
+
+         AddTextImage2Sprite(food_string, food_factor, food_factor,_
+  		 ALIVE, food_sprite)
+         AddTextImage2Sprite(power_string, food_factor, food_factor,_
+  		 ALIVE, food_sprite)
     end sub
 
     sub def_maze
@@ -735,12 +762,20 @@
 	for x as integer = 0 to maze_w-1
 	    for y as integer = 0 to maze_h-1
 		if maze(x+1,y+1) = FOOD then
-		    circle (maze_x + x*maze_xfactor + maze_xfactor\2, maze_y + y*maze_yfactor + maze_yfactor\2), _
-			   MIN(maze_xfactor\6, maze_yfactor\6), RGB(200,200,200),,,,F
+		    food_sprite.mz.x = x+1
+		    food_sprite.mz.y = y+1
+		    update_sprite_xy_from_mz(@food_sprite)
+		    food_sprite.x += (food_sprite.images(ALIVE).img(2)->width - _
+				      food_sprite.images(ALIVE).img(1)->width)/2
+		    put (food_sprite.x + maze_x, food_sprite.y + maze_y), _
+			food_sprite.images(ALIVE).img(1), trans
 		end if
 		if maze(x+1,y+1) = POWERUP then
-		    circle (maze_x + x*maze_xfactor + maze_xfactor\2, maze_y + y*maze_yfactor + maze_yfactor\2), _
-			   MIN(maze_xfactor\3, maze_yfactor\3), RGB(163, 206, 39),,,,F
+		    food_sprite.mz.x = x+1
+		    food_sprite.mz.y = y+1
+		    update_sprite_xy_from_mz(@food_sprite)
+		    put (food_sprite.x + maze_x, food_sprite.y + maze_y), _
+			food_sprite.images(ALIVE).img(2), trans
 		end if
 	    next
 	next
