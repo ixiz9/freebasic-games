@@ -30,7 +30,7 @@ fbc -d SOUND -d v2023 pman.bas
 ```
 Sound requires SDL2. On Linux you should install `libsdl2-dev` and `libsdl2-mixer-dev`. On windows you should download the SDL2 DLLs from [github](https://github.com/libsdl-org/SDL/releases/tag/release-2.26.2) and put them in the same directory as this source.
 
-**[Update 2/2/2023** INTRODUCING TECHMAN
+**[Update 2/2/2023]** INTRODUCING TECHMAN
 Compile with
 ```
 fbc -d VLAYOFFS -d SOUND pman.bas
