@@ -660,7 +660,7 @@
 	    maze_yfactor = 22
 	    #else
 	    maze_xfactor = 34
-	    maze_yfactor = 30
+	    maze_yfactor = 28
 	    #endif
 	    wall_thickness = 3
 	    sprite_xfactor = 2
@@ -774,7 +774,9 @@
     frames_per_sec = 1. / (end_t - start_t)
 
     
-    dim as integer quit, frame_counter
+    dim as integer quit, frame_counter, last_frame_counter
+    dim as double last_sec, start_fps_agg
+    #define FPSAGG 40
     do
 	reset_globals
 	reset_pman
@@ -783,6 +785,7 @@
 	reset_bonuses
 	frame_counter = 0
 	start_t = timer()
+	start_fps_agg = start_t
 	do
 	    time_now = timer() - start_t
 	    dim as integer eaten
@@ -819,8 +822,18 @@
 	    draw_pman(maze_x, maze_y)
 	    screenunlock
 	    frame_counter += 1
-	    frames_per_sec = frame_counter / (timer() - start_t)
-	    sleep 1
+	    dim as double elapsed = timer() - start_t
+	    if elapsed < 1 then
+		frames_per_sec = frame_counter / elapsed
+	    elseif elapsed > last_sec + 1 then
+		'recalculate FPS once a second using only the count over frames
+		'over the previous second
+		frames_per_sec = (frame_counter - last_frame_counter) / (elapsed - last_sec)
+		last_frame_counter = frame_counter
+		last_sec = elapsed		
+	    end if
+		
+	    sleep 1, 1
 	    if pman.state = DEAD then
 		reset_pman
 		reset_ghosts
