@@ -1262,7 +1262,7 @@
 		if advance_explode_animation() = true then player_sprite.state = DEAD
 	    end if
 	    screenunlock
-	    sleep(1)
+	    sleep(1,1)
 	    dim as double now = timer()
 	    frame_count += 1
 	    frames_per_second = frame_count / (now - start_t)
